@@ -74,3 +74,45 @@ export const loginUser = async (req, res) => {
     console.error("Error in logging in ", error.message);
   }
 };
+
+export const completeDetails = async (req, res) => {
+  try {
+    const { name, contact } = req.body;
+    const { userId, email } = req.user;
+
+    if (!name || !contact) {
+      return res.status(400).json({
+        success: false,
+        message: "Name and contact are required",
+      });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { name, contact_no: contact, isOnboarded: true },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const token = generateToken(user);
+
+    const userObj = user.toObject();
+    delete userObj.password;
+
+    return res.status(200).json({
+      success: true,
+      data: userObj,
+      token,
+      message: `Details are saved successfully for ${name}`,
+    });
+  } catch (error) {
+    console.error("Error in completeDetails:", error.message);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

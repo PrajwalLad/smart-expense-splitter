@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { AuthContext } from "../context/AuthContext";
 
 const Homepage = () => {
+  const { user } = useContext(AuthContext);
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="flex flex-col bg-gradient-to-r from-sky-300  to-sky-200 min-h-screen gap-5">
         {/* Hero section */}
         <div className="flex flex-col sm:flex-row md:flex-row items-center justify-center gap-10 px-10 py-7 md:px-24 md:py-15">
@@ -24,12 +26,35 @@ const Homepage = () => {
               Easily track shared expenses, settle up instantly, and keep your
               group finances transparent and hassle-free.
             </p>
-            <Link to="/signup">
-              <button className="flex items-center cursor-pointer bg-sky-500 rounded-lg px-4 py-2 text-white hover:bg-sky-600 shadow transition">
-                Get started
-                <FaArrowCircleRight className="ml-2" />
-              </button>
-            </Link>
+            {!user ? (
+              <Link to="/signup">
+                <button className="flex items-center cursor-pointer bg-sky-500 rounded-lg px-4 py-2 text-white hover:bg-sky-600 shadow transition">
+                  Get started
+                  <FaArrowCircleRight className="ml-2" />
+                </button>
+              </Link>
+            ) : !user.isOnboarded ? (
+              <div className="flex flex-col items-center gap-5">
+                <p className="text-md text-gray-700 font-semibold">
+                  You are just 1 step away from completing
+                </p>
+                <Link to="/onboarding">
+                  <button className="flex items-center cursor-pointer bg-sky-500 rounded-lg px-4 py-2 text-white hover:bg-sky-600 shadow transition">
+                    Complete your setup
+                    <FaArrowCircleRight className="ml-2" />
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <Link to="/groups">
+                  <button className="flex items-center cursor-pointer bg-sky-500 rounded-lg px-4 py-2 text-white hover:bg-sky-600 shadow transition">
+                    Start with your groups
+                    <FaArrowCircleRight className="ml-2" />
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 
@@ -68,7 +93,7 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

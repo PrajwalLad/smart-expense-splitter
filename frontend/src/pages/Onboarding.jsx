@@ -1,25 +1,50 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import Logo from "../components/Logo";
 import Footer from "../components/Footer";
 import { CgProfile } from "react-icons/cg";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Onboarding = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [number, setNumber] = useState(0);
+  const [contact, setContact] = useState("");
 
+  const navigate = useNavigate();
+
+  const { user, login, token } = useContext(AuthContext);
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setEmail(decoded.email);
-      } catch (error) {
-        console.error("Invalid token ", error);
-      }
+    try {
+      setEmail(user.email);
+    } catch (error) {
+      console.error("Invalid token ", error);
     }
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/onboarding",
+        {
+          name,
+          contact,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success(res.data.message);
+
+      login(res.data.token)
+
+      setTimeout(() => navigate("/groups"), 1500);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong.");
+    }
+  };
 
   return (
     <>
@@ -30,13 +55,16 @@ const Onboarding = () => {
             <h2 className="text-lg sm:text-xl md:text-xl text-slate-600">
               Complete your details
             </h2>
-            <div className="flex items-center gap-2 text-slate-600 md:gap-7">
-              <CgProfile size={35} className="md:size-12" />
-              <span className="text-cyan-950 font-semibold hover:underline hover:cursor-pointer">
-                Edit profile
-              </span>
-            </div>
-            <form className="flex flex-col gap-2 text-slate-800 text-md sm:text-lg md:text-lg w-full">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-2 text-slate-800 text-md sm:text-lg md:text-lg w-full"
+            >
+              <div className="flex items-center gap-2 text-slate-600 md:gap-7">
+                <CgProfile size={35} className="md:size-12" />
+                <span className="text-cyan-950 font-semibold hover:underline hover:cursor-pointer">
+                  Edit profile
+                </span>
+              </div>
               <div className="flex flex-col gap-1">
                 <label htmlFor="input">Email</label>
                 <input
@@ -59,10 +87,12 @@ const Onboarding = () => {
               <div className="flex flex-col gap-1">
                 <label htmlFor="input">Mobile no.</label>
                 <input
-                  type="number"
-                  value={number}
-                  onChange={(e) => setNumber(e.target.value)}
+                  type="text"
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
                   required
+                  pattern="\d{10}"
+                  maxLength={10}
                   className="border-1 rounded-lg px-2 py-1 focus:outline-none w-full"
                 />
               </div>

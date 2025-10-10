@@ -13,14 +13,18 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    length: 40
+    maxlength: 40
   },
   contact_no: {
-    type: Number,
-    length: 10
+    type: String,
+    match: /^\d{10}$/
   },
   profile_pic: {
     type: String
+  },
+  isOnboarded: {
+    type: Boolean,
+    default: false
   }
 });
 

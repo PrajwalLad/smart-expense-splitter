@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import Footer from "../components/Footer";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Signup = () => {
+  const { login } = useContext(AuthContext)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +22,7 @@ const Signup = () => {
       });
       toast.success(res.data.message);
 
-      localStorage.setItem("token", res.data.token)
+      login(res.data.token);
 
       setTimeout(() => navigate("/onboarding"), 1500);
     } catch (error) {
