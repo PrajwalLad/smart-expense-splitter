@@ -28,7 +28,7 @@ const Homepage = () => {
             </p>
             {!user ? (
               <Link to="/signup">
-                <button className="flex items-center cursor-pointer bg-sky-500 rounded-lg px-4 py-2 text-white hover:bg-sky-600 shadow transition">
+                <button className="flex items-center cursor-pointer bg-sky-500 rounded-lg px-3 py-2 text-white hover:bg-sky-600 shadow transition">
                   Get started
                   <FaArrowCircleRight className="ml-2" />
                 </button>
@@ -47,9 +47,9 @@ const Homepage = () => {
               </div>
             ) : (
               <div>
-                <Link to="/groups">
+                <Link to="/dashboard">
                   <button className="flex items-center cursor-pointer bg-sky-500 rounded-lg px-4 py-2 text-white hover:bg-sky-600 shadow transition">
-                    Start with your groups
+                    Go to dashboard
                     <FaArrowCircleRight className="ml-2" />
                   </button>
                 </Link>

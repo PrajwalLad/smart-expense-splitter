@@ -1,23 +1,39 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { CgProfile } from "react-icons/cg";
 import { FaAngleDown } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
+import ProfileModal from "./profileModal";
 
 const Navbar = () => {
-  const {user, logout} = useContext(AuthContext);
-  
+  const { user, logout } = useContext(AuthContext);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const close = (e) => {
+      if (!e.target.closest(".profile-dropdown")) setIsOpen(false);
+    };
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, []);
+
   return (
     <div className="flex justify-between items-center px-3 sm:px-8 md:px-12 py-6 bg-gradient-to-r from-sky-300 via-sky-400 to-sky-200 shadow-md">
       <Logo />
       {user ? (
         <>
-          <span className="flex items-center gap-1.5 text-sky-950 bg-sky-100 rounded-xl px-2.5 py-1 cursor-pointer">
-            <CgProfile size={27} />
-            {user.name ?? user.email}
-            <FaAngleDown/>
-          </span>
+          <div className="relative profile-dropdown">
+            <span
+              className="flex items-center gap-1.5 text-sky-950 bg-sky-100 rounded-xl px-2.5 py-1 cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <CgProfile size={27} />
+              {user.name.split(" ")[0] ?? user.email}
+              <FaAngleDown />
+            </span>
+            {isOpen && <ProfileModal />}
+          </div>
         </>
       ) : (
         <div className="flex items-center gap-3 sm:gap-6 text-base sm:text-lg">

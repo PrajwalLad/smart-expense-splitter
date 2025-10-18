@@ -116,3 +116,21 @@ export const completeDetails = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const getUser = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "User does not exist" });
+    }
+    const userObj = user.toObject();
+    delete userObj.password;
+    return res.status(200).json({ success: true, data: userObj });
+  } catch (error) {
+    console.error("Error in getUser:", error.message);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

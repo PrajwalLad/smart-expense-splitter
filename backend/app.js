@@ -1,6 +1,8 @@
 import express from "express";
-import router from "./src/routes/user.routes.js";
 import cors from 'cors'
+import userRouter from "./src/routes/user.routes.js";
+import friendRouter from "./src/routes/friend.routes.js";
+import groupRouter from "./src/routes/group.routes.js";
 
 const app = express();
 
@@ -11,7 +13,13 @@ app.use(cors({
     credentials: true
 }));
 
-//routes
-app.use("/api", router);
+//user routes
+app.use("/api", userRouter);
+
+//friend routes
+app.use("/api/friends", friendRouter)
+
+//group routes
+app.use("/api/groups", groupRouter)
 
 export default app;
