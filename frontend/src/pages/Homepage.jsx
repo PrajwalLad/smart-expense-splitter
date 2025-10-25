@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
-import Card from "../components/Card";
+import Card from "../components/ReviewCard"
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
