@@ -35,7 +35,7 @@ const expenseSchema = new mongoose.Schema(
     },
     friend: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Friend",
+      ref: "User",
       default: null,
     },
 

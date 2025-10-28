@@ -1,0 +1,65 @@
+import React from "react";
+
+const FriendsSummaryTable = ({ data }) => {
+  if (!data) return <div className="text-gray-500">Loading...</div>;
+
+  const friends = data.data?.friends || [];
+  const totalOwedToYou = data.data?.totalOwedToYou || 0;
+  const totalYouOwe = data.data?.totalYouOwe || 0;
+
+  const total =
+    Math.abs(totalOwedToYou - totalYouOwe) === 0
+      ? 0
+      : totalOwedToYou - totalYouOwe;
+
+  return (
+    <div
+      className="flex flex-col w-74 sm:w-80 lg:w-96 gap-2.5 rounded-xl 
+        bg-gradient-to-r from-cyan-400 to-cyan-300 text-gray-700 px-5 pt-7 pb-3 
+        shadow-lg hover:shadow-2xl hover:scale-105 hover:brightness-105 transform 
+        transition-all duration-300 ease-in-out text-lg font-bold relative"
+    >
+      <h2 className="text-center">Friends</h2>
+      <span className="absolute right-1.5 top-1 text-sm cursor-pointer hover:underline text-blue-800">
+        Manage friends
+      </span>
+
+      <div className="total flex justify-between px-2">
+        <h3>Total</h3>
+        <span>{total}</span>
+      </div>
+
+      {friends.length === 0 ? (
+        <div className="text-center text-gray-600">{data.message}</div>
+      ) : (
+        <>
+          <div className="youOwe flex flex-col">
+            <h3 className="text-rose-700">You owe</h3>
+            {friends
+              .filter((f) => f.youOwe > 0)
+              .map((f) => (
+                <p key={f.friendId} className="flex justify-between">
+                  <span>{f.name.split(" ")[0]}</span>
+                  <span>{f.youOwe}</span>
+                </p>
+              ))}
+          </div>
+
+          <div className="owedToYou flex flex-col">
+            <h3 className="text-emerald-800">Owed to you</h3>
+            {friends
+              .filter((f) => f.owedToYou > 0)
+              .map((f) => (
+                <p key={f.friendId} className="flex justify-between">
+                  <span>{f.name.split(" ")[0]}</span>
+                  <span>{f.owedToYou}</span>
+                </p>
+              ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default FriendsSummaryTable;

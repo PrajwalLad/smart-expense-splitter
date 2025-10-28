@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { CgProfile } from "react-icons/cg";
+import { MdDashboardCustomize } from "react-icons/md"
 import { FaAngleDown } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
 import ProfileModal from "./profileModal";
@@ -22,7 +23,10 @@ const Navbar = () => {
     <div className="flex justify-between items-center px-3 sm:px-8 md:px-12 py-6 bg-gradient-to-r from-sky-300 via-sky-400 to-sky-200 shadow-md">
       <Logo />
       {user ? (
-        <>
+        <div className="flex items-center gap-8">
+          <Link to="/dashboard" className="hidden md:flex rounded-xl items-center text-sky-950 bg-sky-100 px-2.5 py-1 gap-1.5 cursor-pointer">
+            <MdDashboardCustomize size={27} />Dashboard
+          </Link>
           <div className="relative profile-dropdown">
             <span
               className="flex items-center gap-1.5 text-sky-950 bg-sky-100 rounded-xl px-2.5 py-1 cursor-pointer"
@@ -34,7 +38,7 @@ const Navbar = () => {
             </span>
             {isOpen && <ProfileModal />}
           </div>
-        </>
+        </div>
       ) : (
         <div className="flex items-center gap-3 sm:gap-6 text-base sm:text-lg">
           <Link to="/login">
