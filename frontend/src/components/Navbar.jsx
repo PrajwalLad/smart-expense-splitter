@@ -33,7 +33,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <CgProfile size={27} />
-              {user.name.split(" ")[0] ?? user.email}
+              {user?.name?.split(" ")[0] ?? user?.email}
               <FaAngleDown />
             </span>
             {isOpen && <ProfileModal />}

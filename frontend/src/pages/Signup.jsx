@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import Footer from "../components/Footer";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import API from "../api/axios";
 
 const Signup = () => {
   const { login } = useContext(AuthContext)
@@ -16,7 +16,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/api/signup", {
+      const res = await API.post("/signup", {
         email,
         inputPassword: password,
       });
@@ -24,7 +24,7 @@ const Signup = () => {
 
       login(res.data.token);
 
-      setTimeout(() => navigate("/onboarding"), 1500);
+      setTimeout(() => navigate("/onboarding"), 3000);
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong.");
     }

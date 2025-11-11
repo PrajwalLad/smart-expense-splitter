@@ -1,10 +1,11 @@
-import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
+import API from '../api/axios.js'
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [decodedUser, setDecodedUser] = useState(null);
   const [user, setUser] = useState(null);
@@ -23,24 +24,29 @@ export const AuthProvider = ({ children }) => {
     } else {
       setDecodedUser(null);
       setUser(null);
+      setLoading(false);
     }
   }, [token]);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/getUser", {
+        const res = await API.get("/getUser", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data.data);
       } catch (err) {
         console.error("Error fetching user:", err);
         logout();
+      } finally {
+        setLoading(false);
       }
     };
 
     if (decodedUser && token) {
       fetchUser();
+    } else {
+      setLoading(false);
     }
   }, [decodedUser, token]);
 
@@ -53,10 +59,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setToken(null);
     setDecodedUser(null);
+    setUser(null)
   };
 
   return (
-    <AuthContext.Provider value={{ token, decodedUser, user, login, logout }}>
+    <AuthContext.Provider value={{ token, decodedUser, user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

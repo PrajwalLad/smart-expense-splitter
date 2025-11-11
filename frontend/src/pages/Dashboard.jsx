@@ -5,15 +5,15 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import {TiTick} from "react-icons/ti"
 import DashboardCard from "../components/DashboardCard";
 import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
 import SummaryTables from "../components/SummaryTables";
+import API from "../api/axios";
 
 const Dashboard = () => {
   const { token } = useContext(AuthContext);
   const [summary, setSummary] = useState({});
   const getSummary = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/expense", {
+      const res = await API.get("/expense", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSummary(res.data);

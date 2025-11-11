@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import FriendsSummaryTable from "./FriendsSummaryTable";
 import GroupsSummaryTable from "./GroupsSummaryTable";
+import API from "../api/axios";
 
 const SummaryTables = () => {
   const { token } = useContext(AuthContext);
@@ -12,10 +12,10 @@ const SummaryTables = () => {
   const fetchSummary = async () => {
     try {
       const [resFriends, resGroups] = await Promise.all([
-        axios.get("http://localhost:3000/api/expense/friends", {
+        API.get("/expense/friends", {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get("http://localhost:3000/api/expense/groups", {
+        API.get("/expense/groups", {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);

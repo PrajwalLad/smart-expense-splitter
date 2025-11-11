@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../components/Logo";
 import Footer from "../components/Footer";
-import axios from "axios";
+import API from '../api/axios.js';
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const Login = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
     try {
-      const res = await axios.post("http://localhost:3000/api/login", {
+      const res = await API.post("/login", {
         email, password
       });
       localStorage.setItem("token", res.data.token);

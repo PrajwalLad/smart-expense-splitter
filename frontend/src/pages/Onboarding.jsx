@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import Logo from "../components/Logo";
 import Footer from "../components/Footer";
 import { CgProfile } from "react-icons/cg";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import API from "../api/axios";
 
 const Onboarding = () => {
   const [email, setEmail] = useState("");
@@ -18,17 +17,17 @@ const Onboarding = () => {
   const { user, login, token } = useContext(AuthContext);
   useEffect(() => {
     try {
-      setEmail(user.email);
+      setEmail(user?.email);
     } catch (error) {
       console.error("Invalid token ", error);
     }
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/onboarding",
+      const res = await API.post(
+        "/onboarding",
         {
           name,
           contact,
@@ -39,7 +38,7 @@ const Onboarding = () => {
 
       login(res.data.token)
 
-      setTimeout(() => navigate("/groups"), 1500);
+      setTimeout(() => navigate("/dashboard"), 1500);
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong.");

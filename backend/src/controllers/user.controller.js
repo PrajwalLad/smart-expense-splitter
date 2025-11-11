@@ -134,3 +134,30 @@ export const getUser = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const updateUser = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const { name, email, contact_no } = req.body;
+    const user = await User.findByIdAndUpdate(userId, {
+      name,
+      email,
+      contact_no
+    });
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "User does not exist" });
+    }
+    const userObj = user.toObject();
+    delete userObj.password;
+    res.status(200).json({
+      success: true,
+      message: "User has been updated successfully",
+      data: userObj
+    })
+  } catch (error) {
+    console.log("Error in updating user: ", error.message);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
