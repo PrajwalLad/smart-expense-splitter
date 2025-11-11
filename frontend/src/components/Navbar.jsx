@@ -5,7 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdDashboardCustomize } from "react-icons/md"
 import { FaAngleDown } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
-import ProfileModal from "./profileModal";
+import ProfileModal from "./ProfileModal";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
