@@ -11,6 +11,7 @@ const ProfileModal = () => {
         <Link to="/dashboard" className='md:hidden font-semibold hover:text-cyan-900'>Dashboard</Link>
         <Link to="/profile" className='font-semibold hover:text-cyan-900'>Profile</Link>
         <Link to="/groups" className='font-semibold hover:text-cyan-900 hover:font-bold'>My Groups</Link>
+        <Link to="/friends" className='font-semibold hover:text-cyan-900 hover:font-bold'>Friends</Link>
         <button className='font-semibold text-red-500 cursor-pointer' onClick={()=>logout()} >Log Out</button>
       </div>
     </>

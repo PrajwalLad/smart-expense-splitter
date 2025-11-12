@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const FriendsSummaryTable = ({ data }) => {
   if (!data) return <div className="text-gray-500">Loading...</div>;
@@ -15,14 +16,14 @@ const FriendsSummaryTable = ({ data }) => {
   return (
     <div
       className="flex flex-col w-74 sm:w-80 lg:w-96 gap-2.5 rounded-xl 
-        bg-gradient-to-r from-cyan-400 to-cyan-300 text-gray-700 px-5 pt-7 pb-3 
+        bg-gradient-to-r from-sky-400 via-sky-400 to-sky-300 text-gray-700 px-5 pt-7 pb-3 
         shadow-lg hover:shadow-2xl hover:scale-105 hover:brightness-105 transform 
         transition-all duration-300 ease-in-out text-lg font-bold relative"
     >
       <h2 className="text-center">Friends</h2>
-      <span className="absolute right-1.5 top-1 text-sm cursor-pointer hover:underline text-blue-800">
+      <Link to="/friends"><span className="absolute right-1.5 top-1 text-sm cursor-pointer hover:underline text-blue-800">
         Manage friends
-      </span>
+      </span></Link>
 
       <div className="total flex justify-between px-2">
         <h3>Total</h3>

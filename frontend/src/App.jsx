@@ -8,6 +8,7 @@ import Profile from "./pages/Profile"
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./middlewares/ProtectedRoute";
 import OnboardingRoute from "./middlewares/OnboardingRoute"
+import Groups from "./pages/Groups";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/onboarding" element={<OnboardingRoute><Onboarding /></OnboardingRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
       </Routes>
     </>
   );

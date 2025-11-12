@@ -17,7 +17,7 @@ const Login = () => {
       });
       localStorage.setItem("token", res.data.token);
       toast.success(res.data.message);
-      setTimeout(()=> navigate("/groups"), 1500)
+      setTimeout(()=> navigate("/dashboard"), 1500);
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong")
     }
