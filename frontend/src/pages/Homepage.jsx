@@ -15,7 +15,7 @@ const Homepage = () => {
         {/* Hero section */}
         <div className="flex flex-col sm:flex-row md:flex-row items-center justify-center gap-10 px-10 py-7 md:px-24 md:py-15">
           <div className="left flex justify-center rounded-2xl overflow-hidden">
-            <img src="homepage.png" alt="friend-group-image" width={"600px"} />
+            <img src="homepage.webp" alt="friend-group-image" width={"600px"} />
           </div>
           <div className="right flex flex-col justify-center items-center text-center gap-2">
             <p className="text-xl sm:text-2xl md:text-2xl text-slate-900 font-bold">
