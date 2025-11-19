@@ -9,6 +9,8 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./middlewares/ProtectedRoute";
 import OnboardingRoute from "./middlewares/OnboardingRoute"
 import Groups from "./pages/Groups";
+import Friends from "./pages/Friends"
+import GroupDetail from "./pages/GroupDetail";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
+        <Route path="/friends" element={<ProtectedRoute><Friends /></ProtectedRoute>} />
+        <Route path="/groups/:id" element={<ProtectedRoute><GroupDetail /></ProtectedRoute>} />
       </Routes>
     </>
   );

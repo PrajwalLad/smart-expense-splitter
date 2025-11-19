@@ -27,7 +27,7 @@ const Navbar = () => {
           <Link to="/dashboard" className="hidden md:flex rounded-xl items-center text-sky-950 bg-sky-100 px-2.5 py-1 gap-1.5 cursor-pointer">
             <MdDashboardCustomize size={27} />Dashboard
           </Link>
-          <div className="relative profile-dropdown">
+          <div className="relative z-50 profile-dropdown">
             <span
               className="flex items-center gap-1.5 text-sky-950 bg-sky-100 rounded-xl px-2.5 py-1 cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
