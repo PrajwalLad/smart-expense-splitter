@@ -27,7 +27,7 @@ const Groups = () => {
   return (
     <div className="">
       <Navbar />
-      <div className="flex flex-col bg-gradient-to-r from-sky-300 via-sky-400 to-sky-300 rounded-xl   my-20 mx-5 md:mx-52 px-4 md:px-10 py-5 items-center text-gray-900 gap-8 shadow-2xl">
+      <div className="flex flex-col bg-gradient-to-r from-sky-300 via-sky-400 to-sky-300 rounded-xl   my-20 mx-5 lg:mx-52 px-4 lg:px-10 py-5 items-center text-gray-900 gap-8 shadow-2xl">
         <div className="flex items-center justify-between w-full">
           <h2 className="text-2xl  font-semibold ">Groups</h2>
           <button className="flex items-center gap-1 transition-all delay-75 bg-emerald-700 hover:bg-emerald-800 rounded-lg px-2 py-1 cursor-pointer text-white">

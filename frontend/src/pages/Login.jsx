@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../components/Logo";
 import Footer from "../components/Footer";
 import API from '../api/axios.js';
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
@@ -15,9 +17,9 @@ const Login = () => {
       const res = await API.post("/login", {
         email, password
       });
-      localStorage.setItem("token", res.data.token);
+      login(res.data.token)
       toast.success(res.data.message);
-      setTimeout(()=> navigate("/dashboard"), 1500);
+      navigate("/dashboard");
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong")
     }
