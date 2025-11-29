@@ -66,29 +66,14 @@ const Homepage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2">
             <Card />
             <Card
-              name="Nishant"
-              profession="IPS"
+              name="Rugved"
+              profession="SAP Developer"
               review="This app is great! It helps manage bills of my large friend group.."
-            />
-            <Card
-              name="Pranav"
-              profession="Lieutenant"
-              review="If you are someone who is in armed forces or retired, they offer a 30% discount in premium version!!"
             />
             <Card
               name="Vinayak"
               profession="ERP Applications"
               review="The developer of this app have solved the biggest problem, before this I was manually calculating for my group and now app has the intelligence"
-            />
-            <Card
-              name="Rugved"
-              profession="SAP Developer"
-              review="Supporting my friends company!! He is deserving, I won't say much just have a look at this app and you will come to know"
-            />
-            <Card
-              name="Vinay"
-              profession="Game Developer"
-              review="It was a hectic task that veg people were feeling heavy to pay same split as the non-veg ones.. But now this app has the ability to simply separate according to dishes, this feature is helpful to those who only want to pay for their dish"
             />
           </div>
         </div>
